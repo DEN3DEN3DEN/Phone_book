@@ -1,0 +1,62 @@
+.btn {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    text-transform: uppercase;
+    padding: 8px 30px;
+    border: 1px solid #717171;
+    background-color: blueviolet;
+    vertical-align: top;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .btn_main {
+    text-align: center;
+    margin: 20px 0;
+  }
+  ._list {
+    margin-right: 50px;
+    font-size: 16px;
+    padding: 20px 70px;
+    
+  }
+  ._form {
+    font-size: 16px;
+    padding: 20px 50px;
+  }
+  ._list:hover, .active_list,
+  .active ._list, ._edit:hover {
+    background: greenyellow;
+    color: #ffffff;
+  }
+  ._form:hover,
+  .active ._form {
+    background: greenyellow;
+    color: #ffffff;
+  }
+  ._delete:hover {
+    background: red;
+    color: #ffffff;
+  }
+  .popup_delete {
+    background: #ce4d39;
+    font-size: 16px;
+    line-height: 18px;
+    border: none;
+    color: #ffffff;
+  }
+  .popup_delete:hover {
+    background: #e0280c;
+  }
+  .popup_cancel {
+    background: greenyellow;
+    font-size: 16px;
+    line-height: 18px;
+    border: none;
+    color: #ffffff;
+    margin-right: 50px;
+  }
+  .popup_cancel:hover {
+    background: #989b97;
+  }
+  

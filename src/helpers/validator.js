@@ -1,5 +1,5 @@
 export const validateContactName = (name) => {
-    const regEx = /^[A-Z][a-z]{1,} [A-Z][a-z]{1,}$/;
+    const regEx = /^[A-Z][a-z]{1,}( [A-Z][a-z]{1,}){1,}$/;
     return regEx.test(name);
 }
 

@@ -1,14 +1,15 @@
+import { Link } from "react-router-dom";
 import Button from "../componets/Button";
 import './ContactsListPage.scss';
 
-function ContactList({items, onDelete}) {
+function ContactList({items, isOpenModal}) {
    const handleDelete = (event) => {
         const id = event.target.getAttribute('data-delete');
-        onDelete(id);
+        isOpenModal(id);
    }
     return ( 
         <div>
-            {!items.length && <div>Phone book is empty</div>}
+            {!items.length && <div className="empty">Phone book is empty</div>}
             {!!items.length && (
             <div className="contacts_block container">
                 <div>
@@ -34,10 +35,21 @@ function ContactList({items, onDelete}) {
                         </li>))}
                     </ul>
                 </div>
+                <div>
+                    <h2>Edit contact</h2>
+                    <ul className="list_delete">
+                        {items.map(item => (
+                        <li key={item.id}>
+                        <Link to={`/contact/${item.id}`} key={item.id}>
+                            <Button value="Edit" className="btn _edit" data={item.id}/>
+                        </Link>
+                        </li>))}
+                    </ul>
+                </div>
             </div>
             )}
         </div>
-     );
+    );
 }
 
 export default ContactList;
