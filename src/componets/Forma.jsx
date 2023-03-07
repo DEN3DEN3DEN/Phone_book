@@ -18,20 +18,22 @@ function Form (props) {
     const contactPhone = useRef('');
 
     useEffect(() => {
-        if(props.item) {
-        props.item.forEach(element => {
-            setEditName(element.name)
-            setEditPhone(element.phone)
-            });
-        }
-    }, [props.item]);
+        if(props.item && Array.isArray(props.item) && props.item.length > 0) {
+            props.item.forEach(element => {
+                setEditName(element.name)
+                setEditPhone(element.phone)
+                contactName.current.value = element.name;
+                contactPhone.current.value = element.phone;
+                });
+            }
+    }, [props.item, editName, editPhone]);
 
     const handleSave = () => {
         const editContactSave = {};
         const contactNameValue = contactName.current.value;
         const isNameValid = validateContactName(contactNameValue);
         let indexSave = 0;
-        if(!isNameValid) {
+        if (!isNameValid) {
             setErrorContactName(true);
         } else {
             setErrorContactName(false);
@@ -43,50 +45,55 @@ function Form (props) {
             editContactSave.name = contactNameValue;
             indexSave++;
         }
-
+    
         const contactPhoneValue = contactPhone.current.value;
         const isPhoneValid = validateContactPnone(contactPhoneValue);
-        if(!isPhoneValid) {
+        if (!isPhoneValid) {
             setErrorContactPhone(true);
         } else {
             setErrorContactPhone(false);
             editContactSave.phone = contactPhoneValue;
             indexSave++;
         }
-
-        if (indexSave === 2) {
-            props.onSave(editContactSave);
+    
+        if (indexSave === 2 && isNameValid && isPhoneValid) {
+            if (props.onSave && typeof props.onSave === 'function') {
+                props.onSave(editContactSave);
+                setSaveContact(false);
+                setEditName(contactName.current.value);
+                setEditPhone(contactPhone.current.value);
+            }
             setSaveContact(true);
         }
     }
 
     return ( 
         <div>
-        <div className="container">
-        {!saveContact && (
-        <form className="contacts-block_form">
-            <h2>{props.title}</h2>
-            <div>
-                <p>{editName !== "" ?
-                    <input type="text" name="contactName" defaultValue={editName} ref={contactName} placeholder="Name and Surname"/> :
-                    <input type="text" name="contactName" ref={contactName} placeholder="Name and Surname"/>}
-                    {errorContactName && <span className="error">Fill your name and surname correctly!</span>}
-                </p>
-                <p>{editPhone !== "" ?
-                    <input type="text" name="contactPhone" defaultValue={editPhone} ref={contactPhone} placeholder="Pnone number"/> :
-                    <input type="text" name="contactPhone" ref={contactPhone} placeholder="Pnone number"/>}
-                    {errorContactPhone && <span className="error">Fill your pnone number correctly!</span>}
-                </p>
-                <p>
-                    <Button value="Save contact" id="btn_save" callback={handleSave} className="btn _save"/>
-                </p>
+            <div className="container">
+                {!saveContact && (
+                <form className="contacts-block_form">
+                    <h2>{props.title}</h2>
+                    <div>
+                        <p>{editName !== "" ?
+                            <input type="text" name="contactName" defaultValue={editName} ref={contactName} placeholder="Name and Surname"/> :
+                            <input type="text" name="contactName" ref={contactName} placeholder="Name and Surname"/>}
+                            {errorContactName && <span className="error">Fill your name and surname correctly!</span>}
+                        </p>
+                        <p>{editPhone !== "" ?
+                            <input type="text" name="contactPhone" defaultValue={editPhone} ref={contactPhone} placeholder="Pnone number"/> :
+                            <input type="text" name="contactPhone" ref={contactPhone} placeholder="Pnone number"/>}
+                            {errorContactPhone && <span className="error">Fill your pnone number correctly!</span>}
+                        </p>
+                        <p>
+                        <Button value="Save contact" id="btn_save" callback={handleSave} className="btn _save" onClick={handleSave}/>
+                        </p>
+                    </div>
+                </form>)}
+                {saveContact && (
+                    <div className="info_block">New contact added to phonebook!</div>
+                )}
             </div>
-        </form>)}
-        {saveContact && (
-            <div className="info_block">New contact added to phonebook!</div>
-        )}
-    </div>
-    </div>
+        </div>
     );
 }
 

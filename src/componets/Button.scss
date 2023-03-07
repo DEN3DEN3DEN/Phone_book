@@ -1,10 +1,10 @@
 .btn {
-    font-weight: 400;
+    font-weight: 700;
     font-size: 12px;
     line-height: 12px;
     text-transform: uppercase;
     padding: 8px 30px;
-    border: 1px solid #717171;
+    border: none;   
     background-color: blueviolet;
     vertical-align: top;
     border-radius: 10px;
@@ -39,14 +39,14 @@
     color: #ffffff;
   }
   .popup_delete {
-    background: #ce4d39;
+    background: red;
     font-size: 16px;
     line-height: 18px;
     border: none;
     color: #ffffff;
   }
   .popup_delete:hover {
-    background: #e0280c;
+    background: red;
   }
   .popup_cancel {
     background: greenyellow;

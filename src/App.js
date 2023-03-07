@@ -37,14 +37,11 @@ function App() {
     }
 
     const handleEditContact = item => {
-        for(let i=0; i < items.length; i++ ) {
-          if (items[i].id === Number(item.id)) {
-            items[i].name = item.name;
-            items[i].email = item.email;
-            items[i].phone = item.phone;
-          }
+        const index = items.findIndex(i => i.id === Number(item.id));
+        if (index !== -1) {
+            items.splice(index, 1, item);
+            setItems([...items]);
         }
-        setItems(items);
     }
 
     const isOpenModal = (number) => {
@@ -53,8 +50,11 @@ function App() {
     }
 
     const handleDeleteContact = () => {
-        setItems(items.filter(item => item.id !== Number(index)));
-        setModalOpen(false);
+        const existingItem = items.find(i => i.id === Number(index));
+        if (existingItem) {
+            setItems(items.filter(item => item.id !== Number(index)));
+            setModalOpen(false);
+        }
     }
 
   return (
@@ -65,13 +65,12 @@ function App() {
             <NavLink to="/form"><Button value="Add new contact" id="btn_form" className="btn _form"/></NavLink>
           </div>
           <Routes>
-            <Route path="/" element={<ContactList items={items} isOpenModal={isOpenModal}/>} />
-            <Route path="/form" element={<AddForm onSave={handleCreateContact}/>} />
+            <Route path="/" element={<ContactList items={items} isOpenModal={isOpenModal}/>}/>
+            <Route path="/form" element={<AddForm onSave={handleCreateContact}/>}/>
             <Route path="/contact/:contactId" element={<EditContactPage items={items} onSave={handleEditContact}/>}/>
-            <Route path="*" element={<ErrorPage />} />
+            <Route path="*" element={<ErrorPage />}/>
           </Routes>
-          {modalOpen &&
-          <Modal onClose={isModalClose} onDelete={handleDeleteContact}/>}
+          {modalOpen && <Modal onClose={isModalClose} onDelete={handleDeleteContact}/>}
         </BrowserRouter>
     </div>
   );

@@ -13,8 +13,8 @@ function EditContactPage({items, onSave}) {
     let contactAbout = contact.filter(item => item.id === Number(params.contactId));
        
     return ( 
-        <Forma item={contactAbout} onSave={onSave} title="Editing a contact"/>
-     );
+        <Forma item={contactAbout} onSave={onSave} title="Edit a contact"/>
+    );
 }
 
 export default EditContactPage;

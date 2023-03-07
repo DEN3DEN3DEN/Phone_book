@@ -1,9 +1,10 @@
 import Forma from "../componets/Forma";
+import './AddFormPage.scss';
 
 function AddForm({ onSave }) {
    
     return ( 
-        <Forma title="Add new contact" onSave={onSave}/>
+        <Forma title="New contact" onSave={onSave}/>
      );
 }
 
